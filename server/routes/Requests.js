@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Requests, Responses } = require('../models');
+const { Op } = require('sequelize');
 
 /* GET ENDPOINTS */
 
@@ -39,7 +40,7 @@ router.get('/staff/:assignedid', async (req, res) => {
 
 // view all requests made by student [Student] 
 router.get('/student/:creatorid', async (req, res) => {
-    id = req.params['creatorid'];
+    id = req.params.creatorid;
 
     // get all requests made by student
     const requests = await Requests.findAll(
@@ -48,10 +49,20 @@ router.get('/student/:creatorid', async (req, res) => {
         }
     );
 
-    // View academic and admin feedback related to them
+    const requestIds = requests.map(req => req.id);
+
+    console.log(requestIds);
+
+    // get all academic and admin feedback related to them
+    const responses = await Responses.findAll({ 
+            where: {
+                request_id: {
+                    [Op.or]: requestIds
+                }}
+        });
 
     // return the result 
-    res.status(200).json(requests);
+    res.status(200).json({requests: requests, responses: responses});
 });
 
 /* POST ENDPOINTS */
