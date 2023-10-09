@@ -74,7 +74,7 @@ function Facilitator() {
                                         <Field onClick={() => setRequestId(value.id)} id='inputResponse' name='content' component='textarea'></Field>
                                         <ErrorMessage name='content' component='div' id='errorMessage' />
                                     </div>
-                                    <button type='submit'>Submit Feedback</button> 
+                                    <button type='submit'>Submit</button> 
                                 </Form>
                             </Formik>
                         </div>                        

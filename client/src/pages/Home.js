@@ -59,16 +59,16 @@ function Home() {
                     <p className='content'>{value.content}</p>
                     <div className='feedbackSection'>
                         <div className='responseLine'></div>
-                        { value.request_type !== 'Admin' || responses.length === 0 ? 
-                        // if there are no responses and the request is not administrative
-                        <p className='contentLoading'>Feedback pending...</p> : 
-                        // if there is a response related to the admin request
+                        {// if there is a response related to the admin request
                         (responses.some(response => response.request_id === value.id)) ?
                         <div className='feedbackContent'>
-                            <p className='creatorName'>Comment</p>
+                            <p className='creatorName'>{value.request_type === 'Admin' ? 'Comment': 'Feedback by facilitator'}</p>
                             <p>{responses.find(({request_id}) => request_id === value.id).content}</p>
-                        </div>
-                         :
+                        </div> :
+                        (value.request_type !== 'Admin') ? 
+                        // if there are no responses and the request is not administrative
+                        <p className='contentLoading'>Feedback pending...</p> : 
+                        
                         // if there are no responses related to a admin request
                         <div className='addResponseSection'>
                             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
