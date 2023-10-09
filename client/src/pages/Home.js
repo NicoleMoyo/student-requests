@@ -70,7 +70,11 @@ function Home() {
                         <p className='contentLoading'>Feedback pending...</p> : 
                         // if there is a response related to the admin request
                         (responses.some(response => response.request_id === value.id)) ?
-                        <p>{JSON.stringify(responses.find(({request_id}) => request_id === value.id))}</p> :
+                        <div className='feedbackContent'>
+                            <p className='creatorName'>Comment</p>
+                            <p>{responses.find(({request_id}) => request_id === value.id).content}</p>
+                        </div>
+                         :
                         // if there are no responses related to a admin request
                         <div className='addResponseSection'>
                             <div>{responses.length}, {responses[0].request_id}, {key}</div>
