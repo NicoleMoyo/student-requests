@@ -64,11 +64,20 @@ router.post('/', async (req, res) => {
 });
 
 // create responses on requests [Team Lead & Facilitator]
-router.post('/:creatorid', async (req, res) => {
+router.post('/:requestid', async (req, res) => {
     // get request content
     const request = req.body;
+    const requestId = req.params.requestid;
 
-    await Responses.create(request);
+    const data = {
+        creator_id: 'kingcs',
+        content: request.content,
+        request_id: requestId,
+    }
+
+    await Responses.create(data);
+
+    res.status(200).json(data);
 });
 
 
