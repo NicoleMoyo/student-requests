@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { Requests, Responses } = require('../models');
+const { Requests, Responses, Staff } = require('../models');
 const { Op } = require('sequelize');
 
 /* GET ENDPOINTS */
 
-// view all requests [CS Team Lead]
 router.get('/', async (req, res) => {
     // get all requests in the database
     const requests = await Requests.findAll();
@@ -15,6 +14,16 @@ router.get('/', async (req, res) => {
 
     // return the result 
     res.status(200).json({requests: requests, responses: responses});
+});
+
+// get all staff
+router.get('/staff', async (req, res) => {
+    // get all requests in the database
+    const facilitators = await Staff.findAll();
+    console.log(facilitators);
+
+    // return the result 
+    res.status(200).json(facilitators);
 });
 
 // view all academic requests [Facilitator] 

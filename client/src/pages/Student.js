@@ -8,8 +8,13 @@ function Student() {
     const [requests, setRequests] = useState();
     const [responses, setResponses] = useState();
     const [requestId, setRequestId] = useState();
+    const [facilitators, setFacilitators] = useState();
 
     useEffect(() => {
+        axios.get('http://localhost:3001/requests/staff').then((response) => {
+            console.log(response.data);
+            setFacilitators(response.data);
+        });
         axios.get('http://localhost:3001/requests/student/randyhirwa').then((response) => {
             console.log(response.data.requests);
             setRequests(response.data.requests);
@@ -54,6 +59,16 @@ function Student() {
                                 <Field id='inputResponse' name='content' component='textarea'></Field>
                                 <ErrorMessage name='content' component='div' id='errorMessage' />
                                 <label>Type of request</label>
+                                <label>Select facilitator to send request to</label>
+                                <Field name="assigned_id" component="select">
+                                    {facilitators?.map((value, key) => {
+                                        return (
+                                            value.role === 'Facilitator' ?
+                                            <option key={key} value={value.username}>{value.first_name} {value.last_name}</option> :
+                                            <></>
+                                        )
+                                    })}
+                                </Field>
                             </div>
                             <button type='submit'>Submit</button> 
                         </Form>
