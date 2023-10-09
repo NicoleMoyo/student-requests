@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 128px 64px 128px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    color: #00121A;
+}
+
+.feedbackSection {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+}
+
+.responseLine {
+    width: 2px;
+    background: #C9C8C7;
+}
+
+.contentLoading, .creatorName {
+    font-weight: 600;
+}
+.contentLoading {
+    color: #A7A6A4;
+    font-size: 12px;
+}
+
+.request {
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    border-radius: 4px;
+    border: 1px solid #C9C8C7;
+}
+
+.requests {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pageTitle, .navTitle {
+    color: #002A3A;
+    font-weight: 700;
+}
+
+.pageTitle {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 26px;
+    padding-bottom: 26px;
+    margin-bottom: 8px;
+}
+
+.navTitle {
+    font-size: 32px;
+}
+
+.secondaryButton {
+    display: flex;
+    padding: 10px 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #002A3A;
+    font-weight: 700;
+    transition-duration: 0.5s;
+}
+
+.secondaryButton:hover {
+    align-items: center;
+    border-radius: 4px;
+    border-inline: 1px solid #002A3A;
+    background-color: #00293a50;
+    cursor: pointer;
+}
+
+.requestHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chip {
+    display: flex;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid #AF272F;
+    color: #AF272F;
+    font-family: Manrope;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.responseFormContent > label {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#inputResponse {
+    width: 100%;
+    height: 64px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    margin-bottom: 16px;
+    resize: none;
+    border-radius: 4px;
+    border: 1px solid #C9C8C7;
+}
+
+button {
+    display: flex;
+    padding: 10px 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background: #002A3A;
+    border: none;
+    color: #FFF;
+    font-family: Manrope;
+    font-size: 15px;
+    font-weight: 700;
+    margin-left: auto;
+    transition-duration: 0.5s;
+}
+
+button:hover {
+    border-radius: 4px;
+    background-color: #FFF;
+    color: #002A3A;
+    cursor: pointer;
+}
+
+.responseFormContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.responseForm {
+    width: 100%;
+}
+
+.addResponseSection {
+    width: 100%;
+}
+
+#errorMessage {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #AF272F;
+    padding: 4px;
+    background-color: #af27303a;
+    margin-bottom: 8px;
+    color: #AF272F;
+}
