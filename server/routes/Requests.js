@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 
 // view all academic requests [Facilitator] 
 router.get('/staff/:assignedid', async (req, res) => {
-    id = req.params['assignedid'];
+    id = req.params.assignedid;
 
     // get all requests sent to facilitator
     const requests = await Requests.findAll(
@@ -27,8 +27,13 @@ router.get('/staff/:assignedid', async (req, res) => {
         }
     );
 
+    // get all feedback given by facilitator
+    const responses = await Responses.findAll({ 
+            where: {creator_id: id}
+        });
+
     // return the result 
-    res.status(200).json(requests);
+    res.status(200).json({requests: requests, responses: responses});
 });
 
 
@@ -70,7 +75,7 @@ router.post('/:requestid', async (req, res) => {
     const requestId = req.params.requestid;
 
     const data = {
-        creator_id: 'kingcs',
+        creator_id: 'sonenidube',
         content: request.content,
         request_id: requestId,
     }

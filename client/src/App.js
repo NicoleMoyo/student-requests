@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Home from './pages/Home';
+import Facilitator from './pages/Facilitator';
 
 function App() {
 
@@ -9,8 +10,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path='/' exact Component={Home}/>
-        {/* route to post response */}
-        <Route path='/' exact Component={Home}/>
+        <Route path='/facilitator' exact Component={Facilitator}/>
       </Routes>
       </BrowserRouter>
     </div>
