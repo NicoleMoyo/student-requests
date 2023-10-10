@@ -9,6 +9,7 @@ function Student() {
     const [responses, setResponses] = useState();
     const [requestId, setRequestId] = useState();
     const [facilitators, setFacilitators] = useState();
+    const [hiddenState, setHiddenState] = useState(true);
 
     useEffect(() => {
         axios.get('http://localhost:3001/requests/staff').then((response) => {
@@ -27,18 +28,20 @@ function Student() {
     };
 
     const validationSchema = Yup.object().shape({
-        content: Yup.string().required('Cannot send an empty request').min(6, 'Feedback must be at least 6 characters')
+        content: Yup.string().required('Cannot send an empty request').min(6, 'Feedback must be at least 6 characters'),
+        request_type: Yup.string().required('Select request type')
     });
 
     const onSubmit = (data) => {
+        console.log(data);
         const sendData = {
-            creator_id: 'sonenidube',
+            creator_id: 'randyhirwa',
+            request_type: data.request_type,
             content: data.content,
+            assigned_id: data.request_type === 'Admin'? 'kingcs': data.assigned_id
         }
-   
-        axios.post(`http://localhost:3001/requests/${requestId}`, sendData).then((response) => {
-            console.log(response.data);
-            console.log('It worked!');
+        axios.post('http://localhost:3001/requests', sendData).then((response) => {
+            console.log('It worked!')
         });
     }
   return (
@@ -50,7 +53,7 @@ function Student() {
             </div>
         </div>
         <p className='pageTitle'>Submit Request</p>
-            <div className='requests'>
+            <div className='newRequestsSection'>
                 <div className='addResponseSection'>
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         <Form className='responseForm'>
@@ -59,18 +62,34 @@ function Student() {
                                 <Field id='inputResponse' name='content' component='textarea'></Field>
                                 <ErrorMessage name='content' component='div' id='errorMessage' />
                                 <label>Type of request</label>
-                                <label>Select facilitator to send request to</label>
-                                <Field name="assigned_id" component="select">
-                                    {facilitators?.map((value, key) => {
-                                        return (
-                                            value.role === 'Facilitator' ?
-                                            <option key={key} value={value.username}>{value.first_name} {value.last_name}</option> :
-                                            <></>
-                                        )
-                                    })}
-                                </Field>
+                                <div name="request_type" role="group" aria-labelledby="my-radio-group" className='requestTypeSection'>
+                                    <label onClick={() => setHiddenState(false)} className='requestTypeSelect'>
+                                    <Field type="radio" name="request_type" value="Academic" />
+                                    Academic
+                                    </label>
+                                    <label onClick={() => setHiddenState(true)}  className='requestTypeSelect'>
+                                    <Field type="radio" name="request_type" value="Admin" />
+                                    Administrative
+                                    </label>
+                                </div>
+                                <ErrorMessage name='request_type' component='div' id='errorMessage' />
+                                <label hidden={hiddenState}>Select facilitator to send request to</label>
+                                <div hidden={hiddenState}>                                    
+                                    <Field className='facilitatorSection' name="assigned_id" component="select">
+                                        <option name="assigned_id" value='default'>Select option</option>
+                                        {facilitators?.map((value, key) => {
+                                            return (
+                                                value.role === 'Facilitator' ?
+                                                <option key={key} name="assigned_id" value={value.username}>{value.first_name} {value.last_name}</option> :
+                                                <></>
+                                            )
+                                        })}
+                                    </Field>
+                                </div>
+                                
+                                {/* <ErrorMessage name='assigned_id' component='div' id='errorMessage' /> */}
                             </div>
-                            <button type='submit'>Submit</button> 
+                            <button type='submit'>Send Request</button> 
                         </Form>
                     </Formik>
                 </div>      

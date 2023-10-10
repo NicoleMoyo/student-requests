@@ -80,6 +80,7 @@ router.get('/student/:creatorid', async (req, res) => {
 router.post('/', async (req, res) => {
     // get request content
     const request = req.body;
+    
 
     // add request to database
     await Requests.create(request);
