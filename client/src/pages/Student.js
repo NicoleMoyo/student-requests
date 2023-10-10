@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 function Student() {
     const [requests, setRequests] = useState();
     const [responses, setResponses] = useState();
-    const [requestId, setRequestId] = useState();
     const [facilitators, setFacilitators] = useState();
     const [hiddenState, setHiddenState] = useState(true);
 
