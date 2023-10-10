@@ -61,7 +61,7 @@ function Register() {
                                     Student
                         </label>
                         <label className='requestTypeSelect'>
-                        <Field type="radio" name="role" value="Team Lead" />
+                        <Field type="radio" name="role" value="Facilitator" />
                                     Facilitator 
                         </label>
                         <label className='requestTypeSelect'>
