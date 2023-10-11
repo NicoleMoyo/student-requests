@@ -49,7 +49,7 @@ function Register() {
         first_name: Yup.string().required('First name cannot be empty'),
         last_name: Yup.string().required('Last name cannot be empty'),
         password: Yup.string().password().min(8, "Password should be more than 8 characters").required("Password cannot be empty"),
-        confirm_password: Yup.string().password().required("Confirm password cannot be empty").oneOf([Yup.ref('password'), null], 'Passwords must match'),
+        confirm_password: Yup.string().password().required("Confirm password cannot be empty").oneOf([Yup.ref('password'), null], 'Password and confirm password must match'),
         role: Yup.string().required("Select your role")
     });
 

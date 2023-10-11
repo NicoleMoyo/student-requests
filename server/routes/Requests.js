@@ -6,7 +6,7 @@ const { validateToken } = require('../middleware/Auth');
 
 /* GET ENDPOINTS */
 
-router.get('/', async (req, res) => {
+router.get('/', validateToken, async (req, res) => {
     // get all requests in the database
     const requests = await Requests.findAll();
 
@@ -28,7 +28,7 @@ router.get('/staff', async (req, res) => {
 });
 
 // view all academic requests [Facilitator] 
-router.get('/staff/:assignedid', async (req, res) => {
+router.get('/staff/:assignedid', validateToken, async (req, res) => {
     id = req.params.assignedid;
 
     // get all requests sent to facilitator
@@ -49,7 +49,7 @@ router.get('/staff/:assignedid', async (req, res) => {
 
 
 // view all requests made by student [Student] 
-router.get('/student/:creatorid', async (req, res) => {
+router.get('/student/:creatorid', validateToken, async (req, res) => {
     id = req.params.creatorid;
 
     // get all requests made by student

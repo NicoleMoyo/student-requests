@@ -18,12 +18,14 @@ function Login() {
     }
 
     axios.post('http://localhost:3001/auth/login', data).then((response) => {
+      // if invalid credentials
       if (response.data.error) {
         alert(response.data.error);
       }
       else {
-        console.log(response.data.accessToken);
         sessionStorage.setItem("accessToken", response.data.accessToken);
+        
+        // redirect to respective interface
         response.data.role === "Team Lead" ? navigate('/'):
         response.data.role === "Facilitator" ? navigate('/facilitator'):
         navigate('/student')

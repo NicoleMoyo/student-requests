@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 function Facilitator() {
 
@@ -10,13 +11,21 @@ function Facilitator() {
     const [responses, setResponses] = useState();
     const [requestId, setRequestId] = useState();
 
+    const navigate = useNavigate()
+
     useEffect(() => {
         axios.get('http://localhost:3001/requests/staff/sonenidube').then((response) => {
-            console.log(response.data.requests);
-            setRequests(response.data.requests);
-            setResponses(response.data.responses);
+            // if the user is not authenticated/token is invalid
+            if (response.data.error) {
+                navigate('/login');
+            } else {
+                console.log(response.data.requests);
+                setRequests(response.data.requests);
+                setResponses(response.data.responses);
+            }
+            
         });
-    }, []);
+    }, [navigate]);
 
     const initialValues = {
         content: ''

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 function Student() {
     const [requests, setRequests] = useState();
@@ -10,17 +11,25 @@ function Student() {
     const [facilitators, setFacilitators] = useState();
     const [hiddenState, setHiddenState] = useState(true);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         axios.get('http://localhost:3001/requests/staff').then((response) => {
             console.log(response.data);
             setFacilitators(response.data);
         });
-        axios.get('http://localhost:3001/requests/student/randyhirwa').then((response) => {
-            console.log(response.data.requests);
-            setRequests(response.data.requests);
-            setResponses(response.data.responses);
+
+        // get student data
+        axios.get('http://localhost:3001/requests/student/helenqaqamba').then((response) => {
+            if (response.data.error) {
+                navigate('/login');
+            } else {
+                setRequests(response.data.requests);
+                setResponses(response.data.responses);
+            }
+            
         });
-    }, []);
+    }, [navigate]);
 
     const initialValues = {
         content: ''
@@ -34,7 +43,7 @@ function Student() {
     const onSubmit = (data) => {
         console.log(data);
         const sendData = {
-            creator_id: 'randyhirwa',
+            creator_id: 'helenqaqamba',
             request_type: data.request_type,
             content: data.content,
             assigned_id: data.request_type === 'Admin'? 'kingcs': data.assigned_id
