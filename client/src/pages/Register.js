@@ -3,10 +3,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
 import Icon from 'react-icons-kit';
-import {view} from 'react-icons-kit/ikons/view'
-import {view_off} from 'react-icons-kit/ikons/view_off'
-import {circle_delete} from 'react-icons-kit/ikons/circle_delete'
-import {circle_ok} from 'react-icons-kit/ikons/circle_ok'
+import {view} from 'react-icons-kit/ikons/view';
+import {view_off} from 'react-icons-kit/ikons/view_off';
+import {circle_delete} from 'react-icons-kit/ikons/circle_delete';
+import {circle_ok} from 'react-icons-kit/ikons/circle_ok';
+import axios from 'axios';
 
 YupPassword(Yup);
 
@@ -47,14 +48,18 @@ function Register() {
         username: Yup.string().required('Username cannot be empty').min(3, 'Username must be at least 6 characters').max(15, "Username must be less than 15 characters"),
         first_name: Yup.string().required('First name cannot be empty'),
         last_name: Yup.string().required('Last name cannot be empty'),
-        // password: Yup.string().password().min(6, "Password should be more than 5 characters").required("Password cannot be empty"),
+        password: Yup.string().password().min(8, "Password should be more than 8 characters").required("Password cannot be empty"),
         confirm_password: Yup.string().password().required("Confirm password cannot be empty").oneOf([Yup.ref('password'), null], 'Passwords must match'),
         role: Yup.string().required("Select your role")
     });
 
 
-    const onSubmit = () => {
+    const onSubmit = (data) => {
+        console.log(data);
 
+        axios.post('http://localhost:3001/auth', data).then((response) => {
+            console.log(response);
+        })
     }
 
     return (
@@ -155,7 +160,7 @@ function Register() {
                 </div>
                 <div className='authFormInput'>
                     <label>Confirm Password</label>
-                    <Field autoComplete="off"  className="textField" name='confirm_password'></Field>
+                    <Field autoComplete="off"  className="textField" name='confirm_password' type='password'></Field>
                     <ErrorMessage name='confirm_password' component='div' id='errorMessage' />
                 </div>
                 <div className='authFormInput'>
