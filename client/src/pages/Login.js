@@ -3,11 +3,13 @@ import Icon from 'react-icons-kit';
 import {view} from 'react-icons-kit/ikons/view';
 import {view_off} from 'react-icons-kit/ikons/view_off';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 function Login() {
   const [type, setType] = useState('password');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const login = () => {
     const data = {
@@ -20,7 +22,11 @@ function Login() {
         alert(response.data.error);
       }
       else {
-        sessionStorage.setItem("accessToken", response.data);
+        console.log(response.data.accessToken);
+        sessionStorage.setItem("accessToken", response.data.accessToken);
+        response.data.role === "Team Lead" ? navigate('/'):
+        response.data.role === "Facilitator" ? navigate('/facilitator'):
+        navigate('/student')
       }
     });
   };
