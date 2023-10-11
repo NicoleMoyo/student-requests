@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Requests, Responses, Staff } = require('../models');
 const { Op } = require('sequelize');
+const { validateToken } = require('../middleware/Auth');
 
 /* GET ENDPOINTS */
 
@@ -90,13 +91,13 @@ router.post('/', async (req, res) => {
 });
 
 // create responses on requests [Team Lead & Facilitator]
-router.post('/:requestid', async (req, res) => {
+router.post('/:requestid', validateToken, async (req, res) => {
     // get request content
     const request = req.body;
     const requestId = req.params.requestid;
 
     const data = {
-        creator_id: 'sonenidube',
+        creator_id: request.creator_id,
         content: request.content,
         request_id: requestId,
     }

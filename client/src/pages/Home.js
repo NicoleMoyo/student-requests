@@ -32,10 +32,18 @@ function Home() {
             content: data.content,
         }
    
-        axios.post(`http://localhost:3001/requests/${requestId}`, sendData).then((response) => {
-            console.log(response.data);
-            console.log('It worked!');
-        
+        axios.post(`http://localhost:3001/requests/${requestId}`, sendData, {
+            headers: {
+                accessToken: sessionStorage.getItem('accessToken')
+            }
+        }).then((response) => {
+
+            if (response.data.error) {
+                alert(response.data.error)
+            } else {
+                console.log(response.data);
+                console.log('It worked!');
+            }
         });
     }
 
