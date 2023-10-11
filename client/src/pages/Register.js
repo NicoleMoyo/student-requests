@@ -109,7 +109,7 @@ function Register() {
                             <span className='list-icon green'>
                                 <Icon icon={circle_ok}/>
                             </span> :
-                            <span className='list-icon'>
+                            <span className='list-icon'> 
                                 <Icon icon={circle_delete}/>
                             </span>  }
                             At least one lowercase letter
