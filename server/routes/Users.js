@@ -3,8 +3,8 @@ const router = express.Router();
 const { Staff, Students } = require('../models');
 const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
+const {sign} = require('jsonwebtoken');
 
-// /* GET ENDPOINTS */
 
 /* POST ENDPOINTS */
 
@@ -55,7 +55,9 @@ router.post('/login', async (req, res) => {
             return;
         }
 
-        res.json("You logged in!")
+        const accessToken = sign({username: user.username, role: user.role}, 'retreat')
+
+        res.status(200).json(accessToken);
     })
 });
 
